@@ -2,21 +2,18 @@
 def isValid(s): 
     if(s.count('(') != s.count(')') or s.count('[') != s.count(']') or s.count('{') != s.count('}')):
         return False
-    flag = -1
+    maps = []
     for i in range(len(s)):
-        if (s[i] == '('):
-            flag = 0
-        elif (s[i] == '['):
-            flag = 1
-        elif (s[i] == '{'):
-            flag = 2
-
-        if (s[i] == ')' and flag != 0):
+        if (s[i] == '(' or s[i] == '[' or s[i] == '{'):
+            maps.append(s[i])
+    for i in range(len(s)):
+        if (s[i] == ')' and maps[len(maps)-1] != '('):
             return False
-        elif (s[i] == ']' and flag != 1):
+        elif (s[i] == ']' and maps[len(maps)-1] != '['):
             return False
-        elif (s[i] == '}' and flag != 2):
+        elif (s[i] == '}' and maps[len(maps)-1] != '{'):
             return False
+        maps.pop()
     return True
 
 print(isValid("()"))
